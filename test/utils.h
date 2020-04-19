@@ -6,14 +6,7 @@
 
 using namespace aligned;
 
-using testing_types = ::testing::Types<
-    std::int8_t, std::int16_t, std::int32_t, std::int64_t, std::uint8_t,
-    std::uint16_t, std::uint32_t, std::uint64_t, const std::int8_t,
-    const std::int16_t, const std::int32_t, const std::int64_t,
-    const std::uint8_t, const std::uint16_t, const std::uint32_t,
-    const std::uint64_t, float, double, const float, const double>;
-
-using testing_types_without_const =
+using testing_types =
     ::testing::Types<std::int8_t, std::int16_t, std::int32_t, std::int64_t,
                      std::uint8_t, std::uint16_t, std::uint32_t, std::uint64_t,
                      float, double>;

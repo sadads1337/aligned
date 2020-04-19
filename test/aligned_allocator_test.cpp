@@ -16,15 +16,12 @@ inline auto test_address_aligment(aligned_allocator<T, Align>& allocator) {
   check_align<Align>();
   constexpr auto align = static_cast<std::size_t>(Align);
 
-  if constexpr (std::is_const<T>::value) {
-    const auto* const ptr = allocator.allocate(static_cast<std::size_t>(1u));
-    ASSERT_TRUE(ptr);
-    EXPECT_TRUE(is_aligned(ptr, align));
-  } else {
-    auto* ptr = allocator.allocate(static_cast<std::size_t>(1u));
-    ASSERT_TRUE(ptr);
-    EXPECT_TRUE(is_aligned(ptr, align));
-  }
+  constexpr auto size = static_cast<std::size_t>(1u);
+  auto* const ptr = allocator.allocate(size);
+  ASSERT_TRUE(ptr);
+  EXPECT_TRUE(is_aligned(ptr, align));
+
+  allocator.deallocate(ptr, size);
 }
 
 template <typename T, alignment Align>
@@ -43,23 +40,16 @@ inline auto test_address(aligned_allocator<T, Align>& allocator) {
   check_align<Align>();
   constexpr auto align = static_cast<std::size_t>(Align);
 
-  if constexpr (std::is_const<T>::value) {
-    const auto* const ptr = allocator.allocate(static_cast<std::size_t>(1u));
-    ASSERT_TRUE(ptr);
-    ASSERT_TRUE(is_aligned(ptr, align));
-    const auto& const_ref = *ptr;
-    const auto* const expected_addr = std::addressof(const_ref);
-    const auto* const addr = allocator.address(const_ref);
-    EXPECT_EQ(addr, expected_addr);
-  } else {
-    auto* ptr = allocator.allocate(static_cast<std::size_t>(1u));
-    ASSERT_TRUE(ptr);
-    ASSERT_TRUE(is_aligned(ptr, align));
-    auto& const_ref = *ptr;
-    auto* expected_addr = std::addressof(const_ref);
-    auto* addr = allocator.address(const_ref);
-    EXPECT_EQ(addr, expected_addr);
-  }
+  constexpr auto size = static_cast<std::size_t>(1u);
+  auto* const ptr = allocator.allocate(size);
+  ASSERT_TRUE(ptr);
+  ASSERT_TRUE(is_aligned(ptr, align));
+  const auto& const_ref = *ptr;
+  const auto* const expected_addr = std::addressof(const_ref);
+  const auto* const addr = allocator.address(const_ref);
+  EXPECT_EQ(addr, expected_addr);
+
+  allocator.deallocate(ptr, size);
 }
 
 }  // namespace
