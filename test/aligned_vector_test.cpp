@@ -26,3 +26,33 @@ TYPED_TEST(aligned_vector_test, construct_sse) {
 TYPED_TEST(aligned_vector_test, construct_avx) {
   aligned_vector<TypeParam, alignment::avx>{};
 }
+
+TYPED_TEST(aligned_vector_test, push_back_normal) {
+  aligned_vector<TypeParam, alignment::normal> vector;
+  vector.push_back(TypeParam{});
+}
+
+TYPED_TEST(aligned_vector_test, push_back_sse) {
+  aligned_vector<TypeParam, alignment::sse> vector;
+  vector.push_back(TypeParam{});
+}
+
+TYPED_TEST(aligned_vector_test, push_back_avx) {
+  aligned_vector<TypeParam, alignment::avx> vector;
+  vector.push_back(TypeParam{});
+}
+
+TYPED_TEST(aligned_vector_test, emplace_back_normal) {
+  aligned_vector<TypeParam, alignment::normal> vector;
+  vector.emplace_back(TypeParam{});
+}
+
+TYPED_TEST(aligned_vector_test, emplace_back_sse) {
+  aligned_vector<TypeParam, alignment::sse> vector;
+  vector.emplace_back(TypeParam{});
+}
+
+TYPED_TEST(aligned_vector_test, emplace_back_avx) {
+  aligned_vector<TypeParam, alignment::avx> vector;
+  vector.emplace_back(TypeParam{});
+}
