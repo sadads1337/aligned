@@ -5,9 +5,9 @@
 namespace aligned {
 
 namespace detail {
-void* allocate_aligned(const std::size_t size, const std::size_t align);
+static void* allocate_aligned(std::size_t size, std::size_t align);
 
-auto deallocate_aligned(void* ptr);
+static auto deallocate_aligned(void* ptr);
 }  // namespace detail
 
 inline namespace cxx17_v1 {

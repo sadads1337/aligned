@@ -8,7 +8,7 @@
 
 namespace aligned {
 namespace detail {
-void* allocate_aligned(const std::size_t size, const std::size_t align) {
+inline void* allocate_aligned(const std::size_t size, const std::size_t align) {
   assert(align >= sizeof(void*));
   if (size == static_cast<std::size_t>(0u)) {
     return nullptr;
@@ -18,7 +18,7 @@ void* allocate_aligned(const std::size_t size, const std::size_t align) {
   return rc ? nullptr : ptr;
 }
 
-auto deallocate_aligned(void* ptr) { return free(ptr); }
+inline auto deallocate_aligned(void* ptr) { return free(ptr); }
 }  // namespace detail
 inline namespace cxx17_v1 {
 
@@ -62,7 +62,7 @@ aligned_allocator<T, Align>::allocate(
 template <typename T, alignment Align>
 [[nodiscard]] inline typename aligned_allocator<T, Align>::pointer
 aligned_allocator<T, Align>::allocate(
-    const typename aligned_allocator<T, Align>::size_type n,
+    [[maybe_unused]]const typename aligned_allocator<T, Align>::size_type n,
     [[maybe_unused]] const void* hint) {
   //! Deprecated
   assert(false);
