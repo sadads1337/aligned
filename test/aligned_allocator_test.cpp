@@ -114,21 +114,21 @@ TYPED_TEST(aligned_allocator_test, check_copy_constructor_nothrow) {
 
 TYPED_TEST(aligned_allocator_test, check_normal_allocation_throw) {
   aligned_allocator<TypeParam, alignment::normal> allocator;
-  TypeParam* ptr = nullptr;
+  [[maybe_unused]] TypeParam* ptr = nullptr;
   EXPECT_ANY_THROW(
       (ptr = allocator.allocate(std::numeric_limits<std::size_t>::max())));
 }
 
 TYPED_TEST(aligned_allocator_test, check_sse_allocation_throw) {
   aligned_allocator<TypeParam, alignment::sse> allocator;
-  TypeParam* ptr = nullptr;
+  [[maybe_unused]] TypeParam* ptr = nullptr;
   EXPECT_ANY_THROW(
       (ptr = allocator.allocate(std::numeric_limits<std::size_t>::max())));
 }
 
 TYPED_TEST(aligned_allocator_test, check_avx_allocation_throw) {
   aligned_allocator<TypeParam, alignment::avx> allocator;
-  TypeParam* ptr = nullptr;
+  [[maybe_unused]] TypeParam* ptr = nullptr;
   EXPECT_ANY_THROW(
       (ptr = allocator.allocate(std::numeric_limits<std::size_t>::max())));
 }
