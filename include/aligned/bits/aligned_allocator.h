@@ -4,12 +4,6 @@
 
 namespace aligned {
 
-namespace detail {
-static void* allocate_aligned(std::size_t size, std::size_t align);
-
-static auto deallocate_aligned(void* ptr);
-}  // namespace detail
-
 inline namespace cxx17_v1 {
 
 enum class alignment : std::size_t {
