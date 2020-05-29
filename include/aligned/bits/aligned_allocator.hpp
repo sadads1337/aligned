@@ -2,26 +2,25 @@
 
 #include <cassert>
 #include <cstdint>
-#include <cstdlib>
 #include <limits>
 
 #include "aligned_allocator.h"
 
 namespace aligned {
-inline namespace cxx17_v1 {
-
 namespace detail {
 inline void* allocate_aligned(const std::size_t size, const std::size_t align) {
   assert(align >= sizeof(void*));
   if (size == static_cast<std::size_t>(0u)) {
     return nullptr;
   }
-  auto * const ptr = std::aligned_alloc(align, size);
-  return ptr;
+  void* ptr = nullptr;
+  const auto rc = posix_memalign(&ptr, align, size);
+  return rc ? nullptr : ptr;
 }
 
-inline auto deallocate_aligned(void* ptr) { return std::free(ptr); }
+inline auto deallocate_aligned(void* ptr) { return free(ptr); }
 }  // namespace detail
+inline namespace cxx17_v1 {
 
 template <typename T, alignment Align>
 [[nodiscard]] inline auto aligned_allocator<T, Align>::max_size()
