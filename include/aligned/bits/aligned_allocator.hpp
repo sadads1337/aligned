@@ -1,8 +1,11 @@
 #pragma once
 
+#include <stdlib.h>
+
 #include <cassert>
 #include <cstdint>
 #include <limits>
+#include <stdexcept>
 
 #include "aligned_allocator.h"
 
@@ -50,7 +53,7 @@ template <typename T, alignment Align>
 aligned_allocator<T, Align>::allocate(
     const typename aligned_allocator<T, Align>::size_type n) {
   if (max_size() < n) {
-    throw std::bad_array_new_length{};
+    throw std::runtime_error{""};
   }
   auto* ptr = detail::allocate_aligned(n * sizeof(value_type), align);
   if (!ptr) {

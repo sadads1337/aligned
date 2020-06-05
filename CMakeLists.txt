@@ -4,12 +4,16 @@ project(aligned CXX)
 
 option(ALIGNED_ENABLE_TESTS "Enable tests build" ON)
 
+set(CMAKE_CXX_STANDART 17)
+
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(common)
 
 add_library(aligned INTERFACE)
 
-target_compile_features(aligned INTERFACE cxx_std_17)
+add_compile_options(-std=c++17)
+
+#target_compile_features(aligned INTERFACE cxx_std_17)
 target_include_directories(aligned INTERFACE
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
